@@ -39,4 +39,31 @@ router.route("/add").post((req, res) => {
     });
 });
 
+router.route("/:id").get((req, res) => {
+  db.collection("events")
+    .doc(`${req.params.id}`)
+    .get()
+    .then(doc => res.json(doc.data()))
+    .catch(err => res.status(400).json({ error: err }));
+});
+
+router.route("/:id").delete((req, res) => {
+  db.collection("events")
+    .doc(`${req.params.id}`)
+    .delete()
+    .then(() => res.json({ message: `Event ${req.params.id} deleted.` }))
+    .catch(err => res.status(400).json({ error: err }));
+});
+
+router.route("/update/:id").post((req, res) => {
+  db.collection("events")
+    .doc(`${req.params.id}`)
+    .update({
+      groupName: req.body.groupName,
+      userName: req.body.userName
+    })
+    .then(() => res.json({ message: `Event ${req.params.id} updated!` }))
+    .catch(err => res.status(400).json({ error: err }));
+});
+
 module.exports = router;

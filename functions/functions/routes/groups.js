@@ -36,4 +36,39 @@ router.route("/add").post((req, res) => {
     });
 });
 
+router.route("/:id").get((req, res) => {
+  db.collection("groups")
+    .doc(`${req.params.id}`)
+    .get()
+    .then(doc => res.json(doc.data()))
+    .catch(err => res.status(400).json({ error: err }));
+});
+
+router.route("/:id").delete((req, res) => {
+  db.collection("groups")
+    .doc(`${req.params.id}`)
+    .delete()
+    .then(() => res.json({ message: `Group ${req.params.id} deleted.` }))
+    .catch(err => res.status(400).json({ error: err }));
+});
+
+router.route("/update/:id").post((req, res) => {
+  const name = req.body.name;
+  db.collection("groups")
+    .doc(`${req.params.id}`)
+    .update({
+      name
+    })
+    .then(() => res.json({ message: `Group ${req.params.id} updated!` }))
+    .catch(err => res.status(400).json({ error: err }));
+
+  db.collection("events")
+    .where("groupName", "array-contains", name)
+    .update({
+      groupName: name
+    })
+    .then(() => res.json({ message: `Event with Group name ${name} updated!` }))
+    .catch(err => res.status(400).json({ error: err }));
+});
+
 module.exports = router;

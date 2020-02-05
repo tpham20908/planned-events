@@ -37,4 +37,45 @@ router.route("/add").post((req, res) => {
     });
 });
 
+router.route("/:id").get((req, res) => {
+  db.collection("users")
+    .doc(`${req.params.id}`)
+    .get()
+    .then(doc => res.json(doc.data()))
+    .catch(err => res.status(400).json({ error: err }));
+});
+
+router.route("/:id").delete((req, res) => {
+  db.collection("users")
+    .doc(`${req.params.id}`)
+    .delete()
+    .then(() => res.json({ message: `User ${req.params.id} deleted.` }))
+    .catch(err => res.status(400).json({ error: err }));
+});
+
+router.route("/update/:id").post((req, res) => {
+  const name = req.body.name;
+  db.collection("users")
+    .doc(`${req.params.id}`)
+    .update({
+      name
+    })
+    .then(() => res.json({ message: `User ${req.params.id} updated!` }))
+    .catch(err => res.status(400).json({ error: err }));
+
+  db.collection("events")
+    .where("userName", "==", name)
+    .get()
+    .then(snapShot => {
+      snapShot.forEach(doc => res.json(doc.data()));
+    })
+    .catch(err => res.status(400).json({ error: err }));
+
+  // .update({
+  //   userName: name
+  // })
+  // .then(() => res.json({ message: `Event with User name ${name} updated!` }))
+  // .catch(err => res.status(400).json({ error: err }));
+});
+
 module.exports = router;
