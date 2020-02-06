@@ -64,20 +64,6 @@ router.route("/update/:id").post((req, res) => {
     })
     .then(() => res.json({ message: `Group ${req.params.id} updated!` }))
     .catch(err => res.status(400).json({ error: err }));
-
-  // const eventsRef = db.collection("events").where("userId", "==", userId);
-  // if (eventsRef.empty) {
-  //   return res.json({ message: "This User has not created any Event." });
-  // }
-
-  // eventRef
-  //   .update({
-  //     groupName: newName
-  //   })
-  //   .then(() =>
-  //     res.json({ message: `Event with Group id ${groupId} updated!` })
-  //   )
-  //   .catch(err => res.status(400).json({ error: err }));
 });
 
 module.exports = router;
