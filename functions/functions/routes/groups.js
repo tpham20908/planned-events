@@ -62,13 +62,13 @@ router.route("/update/:id").post((req, res) => {
     .then(() => res.json({ message: `Group ${req.params.id} updated!` }))
     .catch(err => res.status(400).json({ error: err }));
 
-  db.collection("events")
-    .where("groupName", "array-contains", name)
-    .update({
-      groupName: name
-    })
-    .then(() => res.json({ message: `Event with Group name ${name} updated!` }))
-    .catch(err => res.status(400).json({ error: err }));
+  // db.collection("events")
+  //   .where("groupName", "array-contains", name)
+  //   .update({
+  //     groupName: name
+  //   })
+  //   .then(() => res.json({ message: `Event with Group name ${name} updated!` }))
+  //   .catch(err => res.status(400).json({ error: err }));
 });
 
 module.exports = router;

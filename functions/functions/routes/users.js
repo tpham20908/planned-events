@@ -63,19 +63,13 @@ router.route("/update/:id").post((req, res) => {
     .then(() => res.json({ message: `User ${req.params.id} updated!` }))
     .catch(err => res.status(400).json({ error: err }));
 
-  db.collection("events")
-    .where("userName", "==", name)
-    .get()
-    .then(snapShot => {
-      snapShot.forEach(doc => res.json(doc.data()));
-    })
-    .catch(err => res.status(400).json({ error: err }));
-
-  // .update({
-  //   userName: name
-  // })
-  // .then(() => res.json({ message: `Event with User name ${name} updated!` }))
-  // .catch(err => res.status(400).json({ error: err }));
+  // db.collection("events")
+  //   .where("userName", "==", name)
+  //   .get()
+  //   .then(snapShot => {
+  //     snapShot.forEach(doc => res.json(doc.data()));
+  //   })
+  //   .catch(err => res.status(400).json({ error: err }));
 });
 
 module.exports = router;
