@@ -17,15 +17,17 @@ const App = () => (
   <Router>
     <Navbar />
     <br />
-    <Route path="/" exact component={EventList} />
-    <Route path="/create" component={CreateEvent} />
-    <Route path="/edit/:id" component={EditEvent} />
-    <Route path="/users" component={UserList} />
-    <Route path="/user/create" component={CreateUser} />
-    <Route path="/user/edit/:id" component={EditUser} />
-    <Route path="/groups" component={GroupList} />
-    <Route path="/group/create" component={CreateGroup} />
-    <Route path="/user/edit/:id" component={EditGroup} />
+    <div className="container">
+      <Route path="/" exact component={EventList} />
+      <Route path="/create" component={CreateEvent} />
+      <Route path="/edit/:id" component={EditEvent} />
+      <Route path="/users" component={UserList} />
+      <Route path="/user/create" component={CreateUser} />
+      <Route path="/user/edit/:id" component={EditUser} />
+      <Route path="/groups" component={GroupList} />
+      <Route path="/group/create" component={CreateGroup} />
+      <Route path="/group/edit/:id" component={EditGroup} />
+    </div>
   </Router>
 );
 
