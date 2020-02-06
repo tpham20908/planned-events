@@ -10,8 +10,10 @@ router.route("/").get((req, res) => {
       data.forEach(doc => {
         events.push({
           eventId: doc.id,
-          groupName: doc.data().groupName,
+          userId: doc.data().userId,
           userName: doc.data().userName,
+          groupId: doc.data().groupId,
+          groupName: doc.data().groupName,
           createdAt: doc.data().createdAt
         });
       });
@@ -22,9 +24,13 @@ router.route("/").get((req, res) => {
 });
 
 router.route("/add").post((req, res) => {
+  const { userId, userName, groupId, groupName } = req.body;
+
   const newEvent = {
-    groupName: req.body.groupName,
-    userName: req.body.userName,
+    userId,
+    userName,
+    groupId,
+    groupName,
     createdAt: new Date().toISOString()
   };
 
@@ -59,8 +65,10 @@ router.route("/update/:id").post((req, res) => {
   db.collection("events")
     .doc(`${req.params.id}`)
     .update({
-      groupName: req.body.groupName,
-      userName: req.body.userName
+      userId: req.body.userId,
+      userName: req.body.userName,
+      groupId: req.body.groupId,
+      groupName: req.body.groupName
     })
     .then(() => res.json({ message: `Event ${req.params.id} updated!` }))
     .catch(err => res.status(400).json({ error: err }));

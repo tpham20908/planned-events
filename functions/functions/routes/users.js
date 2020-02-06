@@ -54,21 +54,27 @@ router.route("/:id").delete((req, res) => {
 });
 
 router.route("/update/:id").post((req, res) => {
-  const name = req.body.name;
+  const userId = req.params.id;
+  const newName = req.body.name;
+
   db.collection("users")
-    .doc(`${req.params.id}`)
+    .doc(`${userId}`)
     .update({
-      name
+      name: newName
     })
     .then(() => res.json({ message: `User ${req.params.id} updated!` }))
     .catch(err => res.status(400).json({ error: err }));
 
-  // db.collection("events")
-  //   .where("userName", "==", name)
-  //   .get()
-  //   .then(snapShot => {
-  //     snapShot.forEach(doc => res.json(doc.data()));
+  // const eventsRef = db.collection("events").where("userId", "==", userId);
+  // if (eventsRef.empty) {
+  //   return res.json({ message: "This User has not created any Event." });
+  // }
+
+  // eventsRef
+  //   .update({
+  //     userName: newName
   //   })
+  //   .then(() => res.json({ message: `Event with User Id ${userId} updated!` }))
   //   .catch(err => res.status(400).json({ error: err }));
 });
 

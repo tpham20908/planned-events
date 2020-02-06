@@ -34,7 +34,7 @@ const EditUser = ({ match }) => {
       <h3>Edit User</h3>
       <form onSubmit={onSubmit}>
         <div className="form-group">
-          <label>Username: </label>
+          <label>User Name: </label>
           <input
             type="text"
             required

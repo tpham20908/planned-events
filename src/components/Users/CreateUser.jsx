@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 
 import { rootApi } from "../../constants";
@@ -27,7 +27,7 @@ const CreateUser = () => {
       <h3>Create New User</h3>
       <form onSubmit={onSubmit}>
         <div className="form-group">
-          <label>Username: </label>
+          <label>User Name: </label>
           <input
             type="text"
             required

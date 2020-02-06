@@ -7,7 +7,7 @@ import { rootApi } from "../../constants";
 const User = ({ user, deleteUser }) => (
   <tr>
     <td>{user.name}</td>
-    <td>{user.createdAt}</td>
+    <td>{user.createdAt.split("T")[0]}</td>
     <td>
       <Link to={`user/edit/${user.userId}`}>edit</Link> |{" "}
       <a
@@ -59,7 +59,7 @@ const UserList = () => {
       <table className="table">
         <thead className="thead-light">
           <tr>
-            <th>Username</th>
+            <th>User Name</th>
             <th>Created At</th>
             <th></th>
           </tr>

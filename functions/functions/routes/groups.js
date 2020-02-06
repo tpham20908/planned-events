@@ -3,6 +3,7 @@ const db = require("../db");
 
 router.route("/").get((req, res) => {
   db.collection("groups")
+    .orderBy("createdAt", "desc")
     .get()
     .then(data => {
       const groups = [];
@@ -53,21 +54,29 @@ router.route("/:id").delete((req, res) => {
 });
 
 router.route("/update/:id").post((req, res) => {
-  const name = req.body.name;
+  const groupId = req.params.id;
+  const newName = req.body.name;
+
   db.collection("groups")
-    .doc(`${req.params.id}`)
+    .doc(`${groupId}`)
     .update({
-      name
+      name: newName
     })
     .then(() => res.json({ message: `Group ${req.params.id} updated!` }))
     .catch(err => res.status(400).json({ error: err }));
 
-  // db.collection("events")
-  //   .where("groupName", "array-contains", name)
+  // const eventsRef = db.collection("events").where("userId", "==", userId);
+  // if (eventsRef.empty) {
+  //   return res.json({ message: "This User has not created any Event." });
+  // }
+
+  // eventRef
   //   .update({
-  //     groupName: name
+  //     groupName: newName
   //   })
-  //   .then(() => res.json({ message: `Event with Group name ${name} updated!` }))
+  //   .then(() =>
+  //     res.json({ message: `Event with Group id ${groupId} updated!` })
+  //   )
   //   .catch(err => res.status(400).json({ error: err }));
 });
 
