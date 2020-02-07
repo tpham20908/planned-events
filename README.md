@@ -18,7 +18,7 @@
 
 - firebase-admin to access database
 - firebase-functions to trigger api endpoints
-- express to api endpoints
+- express to control api endpoints
 - cors to setup proxy
 
 ## Database:
@@ -29,7 +29,7 @@
 
 > Technologies:
 
-- React 16: `fully functional component with hooks`
+- React 16: `fully functional component with hooks` used.
 - Bootstrap
 
 > Dependencies:
