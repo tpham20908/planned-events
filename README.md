@@ -13,7 +13,9 @@
 > Technology:
 
 - Serverless Architecture with Firebase Functions
-  > Dependencies:
+
+> Dependencies:
+
 - firebase-admin to access database
 - firebase-functions to trigger api endpoints
 - express to api endpoints
@@ -29,7 +31,9 @@
 
 - React 16: `fully functional component with hooks`
 - Bootstrap
-  > Dependencies:
+
+> Dependencies:
+
 - react to render component
 - react-router-dom to control routing
 - axios to send http request to backend
