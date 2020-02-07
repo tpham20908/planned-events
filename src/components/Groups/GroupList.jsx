@@ -6,7 +6,9 @@ import { rootApi } from "../../constants";
 
 const Group = ({ group, deleteGroup }) => (
   <tr>
-    <td>{group.name}</td>
+    <td>
+      <Link to={`bygroup/${group.groupId}`}>{group.name}</Link>
+    </td>
     <td>{group.createdAt.split("T")[0]}</td>
     <td>
       <Link to={`group/edit/${group.groupId}`}>edit</Link> |{" "}

@@ -3,28 +3,20 @@ import axios from "axios";
 
 import { rootApi } from "../../constants";
 
-const EditEvent = ({ match }) => {
+const CreateEventByGroup = ({ match }) => {
   const [users, setUsers] = useState([]);
-  const [groups, setGroups] = useState([]);
   const [user, setUser] = useState({});
   const [group, setGroup] = useState({});
 
-  const eventId = match.params.id;
+  const groupId = match.params.id;
 
   useEffect(() => {
-    axios.get(`${rootApi}/events/${eventId}`).then(response => {
-      const selectedEvent = response.data;
-      const { userId, userName, groupId, groupName } = selectedEvent;
-      setUser({ userId, name: userName });
-      setGroup({ groupId, name: groupName });
-    });
-
     axios.get(`${rootApi}/users`).then(response => {
       setUsers(response.data);
     });
 
-    axios.get(`${rootApi}/groups`).then(response => {
-      setGroups(response.data);
+    axios.get(`${rootApi}/groups/${groupId}`).then(response => {
+      setGroup(response.data);
     });
   }, []);
 
@@ -34,24 +26,18 @@ const EditEvent = ({ match }) => {
     setUser(selectedUser);
   };
 
-  const onChangeGroup = e => {
-    const groupId = e.target.value;
-    const selectedGroup = groups.filter(group => group.groupId === groupId)[0];
-    setGroup(selectedGroup);
-  };
-
   const onSubmit = e => {
     e.preventDefault();
 
     const newEvent = {
       userId: user.userId,
       userName: user.name,
-      groupId: group.groupId,
+      groupId,
       groupName: group.name
     };
 
     axios
-      .post(`${rootApi}/events/update/${eventId}`, newEvent)
+      .post(`${rootApi}/events/add`, newEvent)
       .then(res => console.log(res.data))
       .catch(err => console.log(err.message));
 
@@ -60,31 +46,26 @@ const EditEvent = ({ match }) => {
 
   return (
     <div>
-      <h3>Edit Event</h3>
+      <h3>Create New Event</h3>
       <form onSubmit={onSubmit}>
         <div className="form-group">
           <label>Group Name</label>
-          <select
-            required
+          <input
+            type="text"
             className="form-control"
-            value={group.groupId}
-            onChange={onChangeGroup}
-          >
-            {groups.map(group => (
-              <option key={group.groupId} value={group.groupId}>
-                {group.name}
-              </option>
-            ))}
-          </select>
+            defaultValue={group.name}
+            readOnly
+          />
         </div>
         <div className="form-group">
           <label>User Name</label>
           <select
             required
             className="form-control"
-            value={user.userId}
+            defaultValue={""}
             onChange={onChangeUser}
           >
+            <option value="">Choose User Name</option>
             {users.map(user => (
               <option key={user.userId} value={user.userId}>
                 {user.name}
@@ -93,11 +74,15 @@ const EditEvent = ({ match }) => {
           </select>
         </div>
         <div className="form-group">
-          <input type="submit" value="Edit Event" className="btn btn-primary" />
+          <input
+            type="submit"
+            value="Create Event"
+            className="btn btn-primary"
+          />
         </div>
       </form>
     </div>
   );
 };
 
-export default EditEvent;
+export default CreateEventByGroup;

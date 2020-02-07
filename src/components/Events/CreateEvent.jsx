@@ -54,22 +54,6 @@ const CreateEvent = () => {
       <h3>Create New Event</h3>
       <form onSubmit={onSubmit}>
         <div className="form-group">
-          <label>User Name</label>
-          <select
-            required
-            className="form-control"
-            defaultValue={""}
-            onChange={onChangeUser}
-          >
-            <option value="">Choose User Name</option>
-            {users.map(user => (
-              <option key={user.userId} value={user.userId}>
-                {user.name}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div className="form-group">
           <label>Group Name</label>
           <select
             required
@@ -81,6 +65,22 @@ const CreateEvent = () => {
             {groups.map(group => (
               <option key={group.groupId} value={group.groupId}>
                 {group.name}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div className="form-group">
+          <label>User Name</label>
+          <select
+            required
+            className="form-control"
+            defaultValue={""}
+            onChange={onChangeUser}
+          >
+            <option value="">Choose User Name</option>
+            {users.map(user => (
+              <option key={user.userId} value={user.userId}>
+                {user.name}
               </option>
             ))}
           </select>

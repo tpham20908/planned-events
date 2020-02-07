@@ -9,7 +9,6 @@ const Event = ({ event, deleteEvent }) => (
     <td>{event.groupName}</td>
     <td>{event.userName}</td>
     <td>
-      <Link to={`edit/${event.eventId}`}>edit</Link> |{" "}
       <a
         href="#"
         onClick={() => {
@@ -22,11 +21,13 @@ const Event = ({ event, deleteEvent }) => (
   </tr>
 );
 
-const EventList = () => {
+const EventListByGroup = ({ match }) => {
   const [events, setEvents] = useState([]);
 
+  const groupId = match.params.id;
+
   useEffect(() => {
-    axios.get(`${rootApi}/events`).then(response => {
+    axios.get(`${rootApi}/events/group/${groupId}`).then(response => {
       setEvents(response.data);
     });
   }, []);
@@ -52,9 +53,14 @@ const EventList = () => {
 
   return (
     <div>
-      <h3>Event List</h3>
-      <Link className="btn btn-primary btn-lg my-2" to={`/create`}>
-        Create New Event
+      <h3>
+        Event List By {events.length ? events[0].groupName : "This Group"}
+      </h3>
+      <Link
+        className="btn btn-primary btn-lg my-2"
+        to={`/createbygroup/${groupId}`}
+      >
+        Add User
       </Link>
       <table className="table">
         <thead className="thead-light">
@@ -70,4 +76,4 @@ const EventList = () => {
   );
 };
 
-export default EventList;
+export default EventListByGroup;

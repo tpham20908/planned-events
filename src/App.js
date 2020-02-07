@@ -4,7 +4,9 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 import Navbar from "./components/Navbar";
 import EventList from "./components/Events/EventList";
+import EventListByGroup from "./components/Events/EventListByGroup";
 import CreateEvent from "./components/Events/CreateEvent";
+import CreateEventByGroup from "./components/Events/CreateEventByGroup";
 import EditEvent from "./components/Events/EditEvent";
 import UserList from "./components/Users/UserList";
 import CreateUser from "./components/Users/CreateUser";
@@ -19,7 +21,9 @@ const App = () => (
     <br />
     <div className="container">
       <Route path="/" exact component={EventList} />
+      <Route path="/bygroup/:id" exact component={EventListByGroup} />
       <Route path="/create" component={CreateEvent} />
+      <Route path="/createbygroup/:id" component={CreateEventByGroup} />
       <Route path="/edit/:id" component={EditEvent} />
       <Route path="/users" component={UserList} />
       <Route path="/user/create" component={CreateUser} />
