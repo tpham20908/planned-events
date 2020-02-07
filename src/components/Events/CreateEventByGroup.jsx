@@ -3,19 +3,20 @@ import axios from "axios";
 
 import { rootApi } from "../../constants";
 
-const CreateEvent = () => {
+const CreateEventByGroup = ({ match }) => {
   const [users, setUsers] = useState([]);
-  const [groups, setGroups] = useState([]);
   const [user, setUser] = useState({});
   const [group, setGroup] = useState({});
+
+  const groupId = match.params.id;
 
   useEffect(() => {
     axios.get(`${rootApi}/users`).then(response => {
       setUsers(response.data);
     });
 
-    axios.get(`${rootApi}/groups`).then(response => {
-      setGroups(response.data);
+    axios.get(`${rootApi}/groups/${groupId}`).then(response => {
+      setGroup(response.data);
     });
   }, []);
 
@@ -25,19 +26,13 @@ const CreateEvent = () => {
     setUser(selectedUser);
   };
 
-  const onChangeGroup = e => {
-    const groupId = e.target.value;
-    const selectedGroup = groups.filter(group => group.groupId === groupId)[0];
-    setGroup(selectedGroup);
-  };
-
   const onSubmit = e => {
     e.preventDefault();
 
     const newEvent = {
       userId: user.userId,
       userName: user.name,
-      groupId: group.groupId,
+      groupId,
       groupName: group.name
     };
 
@@ -55,19 +50,12 @@ const CreateEvent = () => {
       <form onSubmit={onSubmit}>
         <div className="form-group">
           <label>Group Name</label>
-          <select
-            required
+          <input
+            type="text"
             className="form-control"
-            defaultValue={""}
-            onChange={onChangeGroup}
-          >
-            <option value="">Choose Group Name</option>
-            {groups.map(group => (
-              <option key={group.groupId} value={group.groupId}>
-                {group.name}
-              </option>
-            ))}
-          </select>
+            defaultValue={group.name}
+            readOnly
+          />
         </div>
         <div className="form-group">
           <label>User Name</label>
@@ -97,4 +85,4 @@ const CreateEvent = () => {
   );
 };
 
-export default CreateEvent;
+export default CreateEventByGroup;
