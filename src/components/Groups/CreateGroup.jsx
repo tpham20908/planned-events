@@ -8,16 +8,14 @@ const CreateGroup = () => {
 
   const onChangeName = e => setName(e.target.value);
 
-  const onSubmit = e => {
+  const onSubmit = async e => {
     e.preventDefault();
 
     const newGroup = { name };
-    axios
+    await axios
       .post(`${rootApi}/groups/add`, newGroup)
       .then(res => console.log(res.data))
       .catch(err => console.log(err.message));
-
-    setName("");
 
     window.location = "/groups";
   };

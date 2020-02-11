@@ -15,16 +15,14 @@ const EditUser = ({ match }) => {
 
   const onChangeName = e => setName(e.target.value);
 
-  const onSubmit = e => {
+  const onSubmit = async e => {
     e.preventDefault();
 
     const editedUser = { name };
-    axios
+    await axios
       .post(`${rootApi}/users/update/${userId}`, editedUser)
       .then(res => console.log(res.data))
       .catch(err => console.log(err.message));
-
-    setName("");
 
     window.location = "/users";
   };

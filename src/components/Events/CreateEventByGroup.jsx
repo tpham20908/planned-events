@@ -26,7 +26,7 @@ const CreateEventByGroup = ({ match }) => {
     setUser(selectedUser);
   };
 
-  const onSubmit = e => {
+  const onSubmit = async e => {
     e.preventDefault();
 
     const newEvent = {
@@ -36,7 +36,7 @@ const CreateEventByGroup = ({ match }) => {
       groupName: group.name
     };
 
-    axios
+    await axios
       .post(`${rootApi}/events/add`, newEvent)
       .then(res => console.log(res.data))
       .catch(err => console.log(err.message));

@@ -8,16 +8,14 @@ const CreateUser = () => {
 
   const onChangeName = e => setName(e.target.value);
 
-  const onSubmit = e => {
+  const onSubmit = async e => {
     e.preventDefault();
 
     const newUser = { name };
-    axios
+    await axios
       .post(`${rootApi}/users/add`, newUser)
       .then(res => console.log(res.data))
       .catch(err => console.log(err.message));
-
-    setName("");
 
     window.location = "/users";
   };

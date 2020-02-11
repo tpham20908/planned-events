@@ -40,7 +40,7 @@ const EditEvent = ({ match }) => {
     setGroup(selectedGroup);
   };
 
-  const onSubmit = e => {
+  const onSubmit = async e => {
     e.preventDefault();
 
     const newEvent = {
@@ -50,7 +50,7 @@ const EditEvent = ({ match }) => {
       groupName: group.name
     };
 
-    axios
+    await axios
       .post(`${rootApi}/events/update/${eventId}`, newEvent)
       .then(res => console.log(res.data))
       .catch(err => console.log(err.message));
